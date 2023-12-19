@@ -72,6 +72,8 @@ gallery.addEventListener("click", handleClick);
 function handleClick(event) {
     event.preventDefault()
 
+    const image = document.querySelectorAll('.gallery-item')
+
     const instance = basicLightbox.create(`
         <div class="modal">
             <img src="${image.origin}" alt="${image.description}" width="1280px">
