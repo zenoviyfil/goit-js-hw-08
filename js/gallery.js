@@ -72,15 +72,28 @@ gallery.addEventListener("click", handleClick);
 function handleClick(event) {
     event.preventDefault()
 
-    const image = document.querySelectorAll('.gallery-item')
+    if (event.target === event.currentTarget) {
+      return;
+    }
+
+    const imgPath = event.target.dataset.source;
+    const imgAlt = event.target.alt;
 
     const instance = basicLightbox.create(`
         <div class="modal">
-            <img src="${image.origin}" alt="${image.description}" width="1280px">
+            <img src="${imgPath}" alt="${imgAlt}" width="860px">
         </div>
     `);
 
     instance.show();
+    
+    if (instance.show()) {
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          instance.close();
+        }
+      });
+    }
 }
 
 function createMarkUp(arr) {
