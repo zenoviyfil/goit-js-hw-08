@@ -123,12 +123,3 @@ function createMarkUp(arr) {
        )
        .join('');
 }
-
-
-    // if (instance.show()) {
-    //   document.addEventListener('keydown', e => {
-    //     if (e.key === 'Escape') {
-    //       instance.close();
-    //     }
-    //   });
-    // }
