@@ -79,22 +79,33 @@ function handleClick(event) {
     const imgPath = event.target.dataset.source;
     const imgAlt = event.target.alt;
 
-    const instance = basicLightbox.create(`
+    const instance = basicLightbox.create(
+      `
         <div class="modal">
             <img src="${imgPath}" alt="${imgAlt}" width="860px">
         </div>
-    `);
+    `,
+      {
+        onShow: instance => {
+          document.addEventListener('keydown', closeModal);
+        },
+
+        onClose: instance => {
+          document.removeEventListener('keydown', closeModal);
+        },
+      }
+    );
 
     instance.show();
-    
-    if (instance.show()) {
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-          instance.close();
-        }
-      });
+
+    function closeModal(e) {
+      if (e.key === 'Escape') {
+        instance.close();
+      }
     }
 }
+
+
 
 function createMarkUp(arr) {
      return arr
@@ -112,3 +123,12 @@ function createMarkUp(arr) {
        )
        .join('');
 }
+
+
+    // if (instance.show()) {
+    //   document.addEventListener('keydown', e => {
+    //     if (e.key === 'Escape') {
+    //       instance.close();
+    //     }
+    //   });
+    // }
